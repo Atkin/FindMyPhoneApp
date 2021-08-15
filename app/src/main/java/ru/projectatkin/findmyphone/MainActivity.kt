@@ -1,4 +1,4 @@
-package ru.projectatkin.findmyphone
+   package ru.projectatkin.findmyphone
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -14,13 +14,11 @@ import android.os.Looper
 import android.provider.Settings
 import android.telephony.*
 import android.util.Log
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import java.lang.Exception
 import java.lang.reflect.Type
 import java.util.*
 
@@ -57,7 +55,6 @@ class MainActivity : AppCompatActivity() {
 
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-
 
         Timer().scheduleAtFixedRate(object : TimerTask(){
             lateinit var json: String
@@ -168,7 +165,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun isLocationEnabled(): Boolean {
+    fun isLocationEnabled(): Boolean {
         val locationManager : LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
@@ -176,7 +173,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("MissingPermission")
     @RequiresApi(Build.VERSION_CODES.M)
-    private fun requestNewLocationData(){
+    fun requestNewLocationData(){
         var mLocationRequest = LocationRequest()
         mLocationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
         mLocationRequest.interval = 1000
@@ -187,7 +184,7 @@ class MainActivity : AppCompatActivity() {
         mFusedLocationProviderClient.requestLocationUpdates(mLocationRequest, mLocationCallBack, Looper.getMainLooper())
     }
 
-    private val mLocationCallBack = object : LocationCallback() {
+    val mLocationCallBack = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             val mLastLocation: Location = locationResult.lastLocation
             mLatitude = mLastLocation.latitude
