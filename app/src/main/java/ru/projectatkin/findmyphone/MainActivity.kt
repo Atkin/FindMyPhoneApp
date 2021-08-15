@@ -80,11 +80,11 @@ class MainActivity : AppCompatActivity() {
                     if (dataList.isEmpty()) {
                         dataList += locationData
                         json = gson.toJson(dataList)
-                        mPrefs.edit().putString("location1", json).commit()
+                        mPrefs.edit().putString("location1", json).apply()
                     } else {
                         dataList += locationData
                         json = gson.toJson(dataList)
-                        mPrefs.edit().putString("location1", json).commit()
+                        mPrefs.edit().putString("location1", json).apply()
                     }
                 } else {
                     if (json.isNotEmpty()) {
@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
                         oldDataList += data
                     }
                     json = gson.toJson(dataList)
-                    mPrefs.edit().putString("location1", json).commit()
+                    mPrefs.edit().putString("location1", json).apply()
                 }
 
 
