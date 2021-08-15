@@ -72,7 +72,7 @@ class Fragment_Children : Fragment() {
 
         // Create Retrofit
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://188.243.183.37")
+            .baseUrl("http://10.0.2.2:8080")
             .build()
 
         // Create Service

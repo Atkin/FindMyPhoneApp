@@ -67,7 +67,7 @@ class fragment_parent : Fragment(), CellClickListener {
         // Inflate the layout for this fragment
         button = view.findViewById(R.id.contactAddButton)
         button.setOnClickListener {
-            //findNavController().navigate(R.id.action_fragment_parent2_to_mapsFragment, null)
+            rawJSON()
         }
 
         return view
@@ -96,7 +96,69 @@ class fragment_parent : Fragment(), CellClickListener {
     override fun onCellClickListener(index: String?) {
         val bundle = Bundle()
         bundle.putInt("position", index!!.toInt())
+
         findNavController().navigate(R.id.action_fragment_parent2_to_mapsFragment, bundle)
+    }
+
+    fun rawJSON() {
+
+        // Create Retrofit
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://localhost:8080")
+            .build()
+
+        // Create Service
+        val service = retrofit.create(APIService::class.java)
+
+        // Create JSON using JSONObject
+        val jsonObject = JSONObject()
+        jsonObject.put("id", 5)
+        jsonObject.put( "deviceId", 1)
+        jsonObject.put("timeStamp", 1629018970526)
+        jsonObject.put( "longitude", 36.8)
+        jsonObject.put("latitude", 54.62)
+        jsonObject.put("cellid", 123414469921)
+        jsonObject.put("lac", 10500)
+        jsonObject.put("rsrp", -102)
+        jsonObject.put("rsrq", 10)
+        jsonObject.put("sinr", 0)
+        jsonObject.put("deviceid", "c7e6f446f282712b")
+        jsonObject.put("userid", "7e6f446f282712b")
+        jsonObject.put("imsi", "null")
+
+
+
+        // Convert JSONObject to String
+        val jsonObjectString = jsonObject.toString()
+
+        // Create RequestBody ( We're not using any converter, like GsonConverter, MoshiConverter e.t.c, that's why we use RequestBody )
+        val requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
+
+        CoroutineScope(Dispatchers.IO).launch {
+            // Do the POST request and get response
+            val response = service.createEmployee(requestBody)
+
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+
+                    // Convert raw JSON to pretty JSON using GSON library
+                    val gson = GsonBuilder().setPrettyPrinting().create()
+                    val prettyJson = gson.toJson(
+                        JsonParser.parseString(
+                            response.body()
+                                ?.string() // About this thread blocking annotation : https://github.com/square/retrofit/issues/3255
+                        )
+                    )
+
+                    Log.d("Pretty Printed JSON :", prettyJson)
+
+                } else {
+
+                    Log.e("RETROFIT_ERROR", response.code().toString())
+
+                }
+            }
+        }
     }
 
 
