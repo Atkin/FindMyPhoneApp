@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+	<title>Find My Phone</title>
+
+	<style>
+		#map {position:absolute; top:0; bottom:0; left:0; right:0;}
+	</style>
+</head>
+<body>
+	<div id = "map">
+		<script>
+			var map = L.map('map').setView([0,0], 1);
+
+			L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=voNG5m8YsKpdS7hKcPc0',{
+				attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> ' +
+						'<a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'})
+					.addTo(map);
+
+
+			//если это кто-то читает, то пожалуйста не надо бить меня палками за эти гвозди
+			//очень нужна была демка, а времени рабираться с джаваскриптом не было
+			//поймите и простите (да, у меня тоже кровь из глаз от этого)
+			var la = [[${metrics[0].latitude}]];
+			var lo = [[${metrics[0].longitude}]];
+			var marker = L.marker([la,lo]).addTo(map);
+			var list = "<dl><dt>Ребенок 2</dt>"
+					+ "<dt>Время: 14:30</dt>"
+					+ "<dt>sinr ="+[[${metrics[0].sinr}]]+"</dt>"
+					+ "<dt>cellid = "+[[${metrics[0].cellid}]]+"</dt>"
+					+ "<dt>lac = "+[[${metrics[0].lac}]]+"</dt>"
+					+ "<dt>rsrq = "+[[${metrics[0].rsrq}]]+"</dt>"
+					+ "<dt>rsrp = "+[[${metrics[0].rsrp}]]+"</dt>"
+					+ "<dt>imsi = [[${metrics[0].imsi}]]</dt></dl>";
+			marker.bindPopup(list);
+
+			var la1 = [[${metrics[1].latitude}]];
+			var lo1 = [[${metrics[1].longitude}]];
+			var marker1 = L.marker([la1,lo1]).addTo(map);
+			var list = "<dl><dt>Ребенок 1</dt>"
+					+ "<dt>Время: 15:30</dt>"
+					+ "<dt>sinr ="+[[${metrics[1].sinr}]]+"</dt>"
+					+ "<dt>cellid = "+[[${metrics[1].cellid}]]+"</dt>"
+					+ "<dt>lac = "+[[${metrics[1].lac}]]+"</dt>"
+					+ "<dt>rsrq = "+[[${metrics[1].rsrq}]]+"</dt>"
+					+ "<dt>rsrp = "+[[${metrics[1].rsrp}]]+"</dt>"
+					+ "<dt>imsi = [[${metrics[1].imsi}]]</dt></dl>";
+
+			marker1.bindPopup(list);
+			var la1 = [[${metrics[2].latitude}]];
+			var lo1 = [[${metrics[2].longitude}]];
+			var marker2 = L.marker([la1,lo1]).addTo(map);
+			var list = "<dl><dt>Ребенок 2</dt>"
+					+ "<dt>Время: 15:32</dt>"
+					+ "<dt>sinr ="+[[${metrics[2].sinr}]]+"</dt>"
+					+ "<dt>cellid = "+[[${metrics[2].cellid}]]+"</dt>"
+					+ "<dt>lac = "+[[${metrics[2].lac}]]+"</dt>"
+					+ "<dt>rsrq = "+[[${metrics[2].rsrq}]]+"</dt>"
+					+ "<dt>rsrp = "+[[${metrics[2].rsrp}]]+"</dt>"
+					+ "<dt>imsi = [[${metrics[2].imsi}]]</dt></dl>";
+			marker2.bindPopup(list);
+
+		</script>
+	</div>
+</body>
+</html>
