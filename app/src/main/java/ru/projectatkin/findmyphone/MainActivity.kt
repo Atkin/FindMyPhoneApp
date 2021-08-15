@@ -162,6 +162,10 @@ class MainActivity : AppCompatActivity() {
         locationData.imsi = defineIMSI
         Log.i("Infooo", "IMSI: $defineIMSI")
 
+        val time = Calendar.getInstance()
+        locationData.timeStamp = time.timeInMillis
+        Log.i("Infooo", "timeinmillis: ${time.timeInMillis}")
+
     }
 
     private fun isLocationEnabled(): Boolean {
