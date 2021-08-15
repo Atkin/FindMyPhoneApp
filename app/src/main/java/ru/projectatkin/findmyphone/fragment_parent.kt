@@ -1,6 +1,7 @@
 package ru.projectatkin.findmyphone
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,16 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonParser
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
+import retrofit2.Retrofit
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,7 +67,7 @@ class fragment_parent : Fragment(), CellClickListener {
         // Inflate the layout for this fragment
         button = view.findViewById(R.id.contactAddButton)
         button.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_parent2_to_mapsFragment, null)
+            //findNavController().navigate(R.id.action_fragment_parent2_to_mapsFragment, null)
         }
 
         return view
@@ -87,4 +98,6 @@ class fragment_parent : Fragment(), CellClickListener {
         bundle.putInt("position", index!!.toInt())
         findNavController().navigate(R.id.action_fragment_parent2_to_mapsFragment, bundle)
     }
+
+
 }
